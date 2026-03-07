@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, useContext, createContext, use } from "react";
 import api from "../api/axios";
 
 const AuthContext = createContext();
@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       const res = await api.get("/auth/me/");
-      console.log("userdata from useAuth", res.data);
       setUser(res.data);
+      return res.data;
     } catch (err) {
       console.log(err.message);
       setUser(null);
@@ -29,11 +29,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (username, password) => {
-    const res = await api.post("/auth/login/", { username, password });
-    localStorage.setItem("access_token", res.data.access);
-    localStorage.setItem("refresh_token", res.data.refresh);
-    api.defaults.headers.common["Authorization"] = `Bearer ${res.data.access}`;
-    await fetchUser();
+    try {
+      const res = await api.post("/auth/login/", { username, password });
+      localStorage.setItem("access_token", res.data.access);
+      localStorage.setItem("refresh_token", res.data.refresh);
+      api.defaults.headers.common["Authorization"] =
+        `Bearer ${res.data.access}`;
+      const user = await fetchUser();
+      return user;
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const logout = async () => {

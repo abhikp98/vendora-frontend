@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import getRoleRedirectPath from "../utils/roleNavigation";
 export default function Login() {
   const { login, user } = useAuth();
   const navigate = useNavigate();
@@ -17,15 +18,13 @@ export default function Login() {
     setLoading(true);
     setError("");
     try {
-      await login(formData.username, formData.password);
+      const loggedInUser = await login(formData.username, formData.password);
 
-      console.log("role: ", user);
-
-      navigate("/");
-      // navigate(user.role == "customer" ? "/" : "vendor/dashbord/");
+      navigate(getRoleRedirectPath(loggedInUser?.role));
     } catch (err) {
       if (err) {
         setError("Invalid username or password");
+        setLoading(false);
       } else {
         console.log(err.message);
       }
