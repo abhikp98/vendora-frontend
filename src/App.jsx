@@ -11,6 +11,7 @@ import Payment from "./pages/Payment";
 import Orders from "./pages/Orders";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Vendordashboard from "./pages/VendorDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 function App() {
   const { user, loading } = useAuth();
   if (loading)
@@ -71,6 +72,14 @@ function App() {
           element={
             <ProtectedRoute role="vendor">
               <Vendordashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard/"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminDashboard />
             </ProtectedRoute>
           }
         />
