@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children, role }) {
         <p className="text-gray-500">Loading...</p>
       </div>
     );
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/login/" />;
   if (role && user.role !== role) return <Navigate to="/" />;
   return children;
 }
