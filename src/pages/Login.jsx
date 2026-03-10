@@ -19,15 +19,12 @@ export default function Login() {
     setError("");
     try {
       const loggedInUser = await login(formData.username, formData.password);
-
+      console.log("loggedInUser:", loggedInUser);
       navigate(getRoleRedirectPath(loggedInUser?.role));
     } catch (err) {
-      if (err) {
-        setError("Invalid username or password");
-        setLoading(false);
-      } else {
-        console.log(err.message);
-      }
+      setError("Invalid username or password");
+    } finally {
+      setLoading(false);
     }
   };
   return (

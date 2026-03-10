@@ -19,13 +19,22 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const original = error.config;
+
+    // skip interceptor for login and refresh endpoints
+    if (
+      original.url.includes("/auth/login/") ||
+      original.url.includes("/auth/token/refresh/")
+    ) {
+      return Promise.reject(error);
+    }
+
     if (error.response?.status === 401 && !original._retry) {
       console.log("Token expired, refreshing...");
       original._retry = true;
       try {
         const refresh = localStorage.getItem("refresh_token");
         const res = await axios.post(
-          "http://127.0.0.1:8000/api/auth/token/refresh/",
+          `${import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api"}/auth/token/refresh/`,
           { refresh },
         );
         localStorage.setItem("access_token", res.data.access);
@@ -35,11 +44,10 @@ api.interceptors.response.use(
       } catch (err) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        window.location = "/login/";
+        window.location.href = "/login/";
       }
     }
     return Promise.reject(error);
   },
 );
-
 export default api;
