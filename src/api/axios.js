@@ -19,7 +19,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const original = error.config;
-    if (error.response.status === 401 && !original._retry) {
+    if (error.response?.status === 401 && !original._retry) {
       console.log("Token expired, refreshing...");
       original._retry = true;
       try {
