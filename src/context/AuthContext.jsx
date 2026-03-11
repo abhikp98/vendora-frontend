@@ -18,10 +18,11 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       const res = await api.get("/auth/me/");
+      console.log("fetchUser response:", res.data); // ← add
       setUser(res.data);
       return res.data;
     } catch (err) {
-      console.log(err.message);
+      console.log(err.message, "auth me");
       setUser(null);
     } finally {
       setLoading(false);
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }) => {
       return user;
     } catch (err) {
       console.log(err.message);
+      throw err;
     }
   };
 

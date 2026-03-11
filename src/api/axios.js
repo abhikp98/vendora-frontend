@@ -20,11 +20,14 @@ api.interceptors.response.use(
   async (error) => {
     const original = error.config;
 
+    console.log("interceptor triggered:", original.url);
+
     // skip interceptor for login and refresh endpoints
     if (
       original.url.includes("/auth/login/") ||
       original.url.includes("/auth/token/refresh/")
     ) {
+      console.log("Came here");
       return Promise.reject(error);
     }
 

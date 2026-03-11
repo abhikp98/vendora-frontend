@@ -23,6 +23,7 @@ export default function Login() {
       navigate(getRoleRedirectPath(loggedInUser?.role));
     } catch (err) {
       setError("Invalid username or password");
+      console.log("handle submit: ", err.message);
     } finally {
       setLoading(false);
     }
