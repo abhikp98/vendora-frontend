@@ -36,22 +36,16 @@ export default function Navbar() {
               {user.role === "customer" && (
                 <>
                   <Link
-                    to="/products/"
+                    to="/orders"
                     className="text-gray-600 hover:text-blue-600 transition"
                   >
-                    Products
+                    Orders
                   </Link>
                   <Link
                     to="/cart/"
                     className="text-gray-600 hover:text-blue-600 transition"
                   >
-                    🛒 Cart
-                  </Link>
-                  <Link
-                    to="/orders"
-                    className="text-gray-600 hover:text-blue-600 transition"
-                  >
-                    Orders
+                    🛒
                   </Link>
                 </>
               )}

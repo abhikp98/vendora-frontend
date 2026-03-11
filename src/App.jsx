@@ -12,6 +12,7 @@ import Orders from "./pages/Orders";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Vendordashboard from "./pages/VendorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import Footer from "./components/Footer";
 function App() {
   const { user, loading } = useAuth();
   if (loading)
@@ -84,6 +85,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </>
   );
 }
