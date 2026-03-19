@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Vendordashboard from "./pages/VendorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 import Notfound from "./pages/Notfound";
 function App() {
   const { user, loading } = useAuth();
@@ -24,6 +25,7 @@ function App() {
     );
   return (
     <>
+      <Toaster position="bottom-right" />
       <Navbar />
       <Routes>
         <Route path="/login/" element={<Login />} />

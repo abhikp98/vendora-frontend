@@ -25,6 +25,7 @@ export default function Login() {
       navigate(getRoleRedirectPath(loggedInUser?.role));
     } catch (err) {
       console.log(err.code, "code");
+      toast.error("Invalid Username or Password");
       setError("Invalid username or password");
       console.log("handle submit: ", err.message);
     } finally {
