@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Vendordashboard from "./pages/VendorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import Footer from "./components/Footer";
+import Notfound from "./pages/Notfound";
 function App() {
   const { user, loading } = useAuth();
   if (loading)
@@ -84,6 +85,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<Notfound />} />
       </Routes>
       <Footer />
     </>

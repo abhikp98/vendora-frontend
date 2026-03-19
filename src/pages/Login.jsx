@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import getRoleRedirectPath from "../utils/roleNavigation";
+import toast from "react-hot-toast";
 export default function Login() {
   const { login, user } = useAuth();
   const navigate = useNavigate();
@@ -20,8 +21,10 @@ export default function Login() {
     try {
       const loggedInUser = await login(formData.username, formData.password);
       console.log("loggedInUser:", loggedInUser);
+      toast.success("Logged in successfully!");
       navigate(getRoleRedirectPath(loggedInUser?.role));
     } catch (err) {
+      console.log(err.code, "code");
       setError("Invalid username or password");
       console.log("handle submit: ", err.message);
     } finally {
